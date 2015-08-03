@@ -1,23 +1,27 @@
 'use strict';
 
-var webpack = require('webpack'), HtmlWebpackPlugin = require('html-webpack-plugin'), path = require('path'), srcPath = path
-		.join(__dirname, 'src/webapp');
+var webpack = require('webpack'), path = require('path'), srcPath = path.join(
+		__dirname, 'WebContent/js');
 
 module.exports = {
 	target : 'web',
-	entry : {
-		common : [ 'react' ],
-		main : [ 'alt' ]
+	entry : srcPath + '/app.js',
+	output : {
+		path : srcPath,
+		filename : 'bundle.js',
+	},
+	module : {
+		loaders : [ {
+			test : /\.js$/,
+			loader : 'babel-loader'
+		} ],
+		postLoaders : [ {
+			test : /\.js$/,
+			loader : 'uglify-loader'
+		} ]
 	},
 	resolve : {
-		root : srcPath,
-		extensions : [ '', '.js' ],
-		modulesDirectories : [ 'node_modules' ]
+		extensions : [ '', '.js' ]
 	},
-	output : {
-		path : path.join(__dirname, 'WebContent/js'),
-		publicPath : '',
-		filename : '[name].js',
-		pathInfo : true
-	}
+	devtool : "eval"
 };
