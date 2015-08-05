@@ -13,15 +13,20 @@ module.exports = {
 	module : {
 		loaders : [ {
 			test : /\.js$/,
+			exclude : /node_modules/,
 			loader : 'babel-loader'
 		} ],
 		postLoaders : [ {
 			test : /\.js$/,
-			loader : 'uglify-loader'
+			loader : 'uglify-loader',
+			minimize : true
 		} ]
 	},
 	resolve : {
 		extensions : [ '', '.js' ]
 	},
-	devtool : "eval"
+	devtool : "eval",
+	'uglify-loader' : {
+		mangle : true
+	}
 };
